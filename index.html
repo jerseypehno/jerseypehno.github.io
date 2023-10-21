@@ -4,40 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jerseypehno</title>
-    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
-    <meta name="title" content="jerseypehno">
-    <meta name="description" content="wear jersey. show your pride">
-    <meta name="keywords" content="jersey,football, basketball">
+    <meta name="description" content="Wear jerseys and show your pride">
+    <meta name="keywords" content="jersey, football, basketball">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="1 days">
     <meta name="author" content="Glad432">
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.2/dist/cdn.min.js"></script>
+    <style></style>
   </head>
   <body>
+    <header class="top-0 z-30 w-full px-2 py-4 bg-black shadow-xl shadow-black-600/20 sm:px-4">
+      <div class="flex items-center justify-between mx-auto max-w-7xl">
+        <span class="pl-4 text-2xl font-extrabold text-white">Jerseypehno</span>
+        <div class="flex items-center space-x-1">
+          <ul class="hidden space-x-2 md:inline-flex">
+            <li>
+              <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 1</a>
+            </li>
+            <li>
+              <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 2</a>
+            </li>
+          </ul>
+          <div class="inline-flex md:hidden" x-data="{ open: false }">
+            <button class="flex-none px-2 text-2xl text-white" @click="open = true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+              </svg>
+              <span class="sr-only"></span>
+            </button>
+            <div class="absolute top-0 left-0 right-0 z-50 flex flex-col p-2 pb-4 m-2 space-y-3 bg-black rounded shadow" x-show.transition="open" @click.away="open = false" x-cloak>
+              <button class="self-end flex-none px-2 ml-2 text-2xl text-white" @click="open = false">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="sr-only"></span>
+              </button>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 1</a>
+                </li>
+                <li>
+                  <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 2</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
     <div class="container mx-auto p-4">
-      <h1 class="text-2xl font-bold mb-4">Shirt Collection</h1>
       <div id="shirt-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <button id="load-more-button" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600"> Load More </button>
     </div>
+    <footer class="bg-neutral-200 text-center text-white dark:bg-black">
+      <div class="pt-9">
+        <div class="mb-9 flex justify-center">
+          <a href="#" target="_blank" class="mr-9 text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 1</a>
+          <a href="#" target="_blank" class="mr-9 text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 2</a>
+          <a href="#" target="_blank" class="text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 3</a>
+        </div>
+      </div>
+      <div class="bg-neutral-300 p-4 text-center text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200">© Jerseypehno <span class="text-neutral-800 dark:text-neutral-400">2023</span>
+        <span class="text-neutral-800 dark:text-neutral-400">All Rights Reserved</span>
+      </div>
+    </footer>
     <script>
-      const n = 10;
+      const shirtsPerLoad = 6;
       const shirtContainer = document.getElementById('shirt-container');
-      for (let i = 0; i < n; i++) {
-        fetch("https://source.unsplash.com/random").then(response => {
-          const imageUrl = response.url;
-          const shirtCard = document.createElement('div');
-          shirtCard.classList.add('bg-white', 'p-4', 'rounded', 'shadow-md');
-          shirtCard.innerHTML = `
-                        
-													<img src="${imageUrl}" alt="Shirt ${i + 1}" class="w-full h-48 object-cover rounded">
-														<h2 class="text-xl font-semibold mt-2">Shirt ${i + 1}</h2>
-														<p class="text-gray-600">Description of Shirt ${i + 1}</p>
-														<p class="text-blue-500 mt-2">Price: $19.99</p>
-														<button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600">Add to Cart</button>
-                    `;
-          shirtContainer.appendChild(shirtCard);
-        });
+      const loadMoreButton = document.getElementById('load-more-button');
+      let loadedShirts = 0;
+      let allShirts = [];
+
+      function loadShirtsFromJSON() {
+        fetch('datas/data.json').then((response) => response.json()).then((data) => {
+          allShirts = data;
+          loadMoreShirts();
+        }).catch((error) => console.error(error));
       }
+
+      function loadMoreShirts() {
+        for (let i = 0; i < shirtsPerLoad; i++) {
+          if (loadedShirts < allShirts.length) {
+            const shirtData = allShirts[loadedShirts];
+            const shirtCard = createShirtCard(shirtData);
+            shirtContainer.appendChild(shirtCard);
+            loadedShirts++;
+          }
+        }
+        if (loadedShirts >= allShirts.length) {
+          loadMoreButton.disabled = true;
+        }
+      }
+
+      function createShirtCard(shirtData) {
+        const shirtCard = document.createElement('div');
+        shirtCard.className = 'bg-white p-4 rounded shadow-md';
+        shirtCard.innerHTML = `<img src="${shirtData.image}" alt="Shirt ${shirtData.shirtNumber}" class="w-full h-48 object-cover rounded">
+				<h2 class="text-xl font-semibold mt-2">Shirt ${shirtData.shirtNumber}</h2>
+				<p class="text-gray-600">${shirtData.description}</p>
+				<p class="text-blue-500 mt-2">Price: ${shirtData.price}</p>
+				<button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600">Buy now!</button>`;
+        return shirtCard;
+      }
+      loadShirtsFromJSON();
+      loadMoreButton.addEventListener('click', () => {
+        loadMoreShirts();
+      });
     </script>
   </body>
 </html>
