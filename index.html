@@ -10,7 +10,7 @@
     <meta name="author" content="Glad432">
     <script src="https://cdn.tailwindcss.com/3.3.3"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.2/dist/cdn.min.js"></script>
-    <style></style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   </head>
   <body>
     <header class="top-0 z-30 w-full px-2 py-4 bg-black shadow-xl shadow-black-600/20 sm:px-4">
@@ -19,10 +19,7 @@
         <div class="flex items-center space-x-1">
           <ul class="hidden space-x-2 md:inline-flex">
             <li>
-              <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 1</a>
-            </li>
-            <li>
-              <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 2</a>
+              <a href="https://www.instagram.com/Jerseypehno/" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Instagram</a>
             </li>
           </ul>
           <div class="inline-flex md:hidden" x-data="{ open: false }">
@@ -41,10 +38,7 @@
               </button>
               <ul class="space-y-2">
                 <li>
-                  <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 1</a>
-                </li>
-                <li>
-                  <a href="#" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Page 2</a>
+                  <a href="https://www.instagram.com/Jerseypehno/" target="_blank" class="px-4 py-2 font-semibold text-white rounded hover:text-blue-700">Instagram</a>
                 </li>
               </ul>
             </div>
@@ -59,9 +53,9 @@
     <footer class="bg-neutral-200 text-center text-white dark:bg-black">
       <div class="pt-9">
         <div class="mb-9 flex justify-center">
-          <a href="#" target="_blank" class="mr-9 text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 1</a>
-          <a href="#" target="_blank" class="mr-9 text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 2</a>
-          <a href="#" target="_blank" class="text-neutral-800 dark:text-neutral-200 hover:text-blue-700">Link 3</a>
+          <a href="https://www.instagram.com/Jerseypehno/" target="_blank" class="mr-9 text-neutral-800 dark:text-neutral-200 hover:text-blue-700">
+            <i class="fa-brands fa-instagram fa-beat"></i>
+          </a>
         </div>
       </div>
       <div class="bg-neutral-300 p-4 text-center text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200">© Jerseypehno <span class="text-neutral-800 dark:text-neutral-400">2023</span>
@@ -99,8 +93,9 @@
       function createShirtCard(shirtData) {
         const shirtCard = document.createElement('div');
         shirtCard.className = 'bg-white p-4 rounded shadow-md';
-        shirtCard.innerHTML = `<img src="${shirtData.image}" alt="Shirt ${shirtData.shirtNumber}" class="w-full object-cover rounded">
-				<button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600"><p><a href="tel:+919912185135">+91 99121 85135</a></p></button>`;
+        shirtCard.innerHTML = `
+	<img src="${shirtData.image}" alt="Shirt ${shirtData.shirtNumber}" class="w-full object-cover rounded">
+	<button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600"><p><a href="tel:+919912185135">+91 99121 85135</a></p></button>`;
         return shirtCard;
       }
       loadShirtsFromJSON();
